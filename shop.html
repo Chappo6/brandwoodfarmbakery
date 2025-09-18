@@ -1,0 +1,325 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Friendly Bakery — Online Shop</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root{--bg:#f7f7f9;--card:#ffffff;--accent:#b75e3c;--muted:#6b6f76;--glass:rgba(255,255,255,0.6)}
+    *{box-sizing:border-box}
+    body{font-family:Inter,system-ui,Segoe UI,Arial; margin:0; background:linear-gradient(180deg,#fdfbfb, #f7f7f9); color:#111}
+    .wrap{max-width:1100px;margin:32px auto;padding:24px}
+    header{display:flex;align-items:center;justify-content:space-between;margin-bottom:20px}
+    .brand{display:flex;align-items:center;gap:16px}
+  .logo{height:84px;width:84px;border-radius:18px;background:linear-gradient(135deg,var(--accent),#ff9b6b);display:flex;align-items:center;justify-content:center;color:#fff;font-weight:700;font-size:20px;overflow:hidden}
+  .logo img{width:100%;height:100%;object-fit:cover;display:block;border-radius:18px}
+    h1{margin:0;font-size:20px}
+    p.lead{margin:0;color:var(--muted);font-size:14px}
+
+    .grid{display:grid;grid-template-columns:1fr 360px;gap:24px}
+    @media (max-width:880px){.grid{grid-template-columns:1fr} .sidebar{order:2}}
+
+    .products{display:grid;grid-template-columns:repeat(2,1fr);gap:16px}
+    @media (max-width:640px){.products{grid-template-columns:repeat(1,1fr)}}
+
+    .card{background:var(--card);border-radius:12px;padding:16px;box-shadow:0 6px 18px rgba(16,24,40,0.06)}
+    .prod-img{height:120px;border-radius:10px;background:#eee;display:flex;align-items:center;justify-content:center;color:#999;margin-bottom:12px}
+    .prod-title{font-weight:600;margin:0}
+    .prod-desc{color:var(--muted);font-size:13px;margin:8px 0}
+    .prod-footer{display:flex;align-items:center;justify-content:space-between;gap:12px}
+    button.btn{background:var(--accent);color:#fff;border:0;padding:8px 12px;border-radius:10px;cursor:pointer;font-weight:600}
+    button.btn.secondary{background:transparent;color:var(--accent);border:1px solid rgba(183,94,60,0.14)}
+
+    .sidebar{position:relative}
+    .cart-title{display:flex;align-items:center;justify-content:space-between;margin-bottom:12px}
+    .cart-list{min-height:80px}
+    .cart-item{display:flex;gap:12px;align-items:center;padding:8px;border-radius:8px;border:1px solid #f0f0f2;margin-bottom:8px}
+    .qty{background:#f4f4f6;padding:6px 8px;border-radius:8px;font-weight:600}
+    .total-row{display:flex;justify-content:space-between;align-items:center;margin-top:12px;padding-top:12px;border-top:1px dashed #eee}
+
+    .note{font-size:13px;color:var(--muted);margin-top:8px}
+    .success{padding:12px;border-radius:10px;background:linear-gradient(90deg,#e6ffef,#f0fff5);border:1px solid #d7f7df;color:#0b6b32;margin-top:12px}
+    footer{margin-top:28px;color:var(--muted);font-size:13px;text-align:center}
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <div style="margin-bottom:18px;text-align:left;">
+  <a href="home page.html" class="btn ghost" style="background:#fff;color:#b75e3c;border:none;">Return to Home</a>
+    </div>
+    <header>
+      <div class="brand">
+  <div class="logo"><img src="Stickers.jpg" alt="Brandwood Farm Bakery"></div>
+        <div>
+          <h1>Brandwood Farm Bakery</h1>
+          <p class="lead">Fresh bread & baked goods — order online for pickup or local delivery</p>
+        </div>
+      </div>
+      <div>
+        <small class="lead">Fresh · Local · Homemade</small>
+      </div>
+    </header>
+
+    <main class="grid">
+      <section>
+        <div class="card">
+          <h2 style="margin-top:0">Our Goods</h2>
+          <div class="products" id="products"></div>
+          <div class="note" style="margin-top:16px;background:#fff8e1;padding:12px;border-radius:8px;color:#b75e3c;font-weight:600;">
+            Please Note: We require a minimum of <strong>3 days notice</strong> to allow our bread to do its magic.<br>
+            <span style="font-weight:400;color:#6b6f76;">Last order is <strong>12am Fridays</strong> for collection or delivery the following Monday.</span>
+          </div>
+        </div>
+
+        <div style="height:18px"></div>
+        <div class="card">
+          <h3 style="margin-top:0">Watch This Space</h3>
+          <p class="note">At Brandwood Farm Bakery, we’re just at the beginning of our journey. As a small business that’s only just started, we’re keeping things simple and focusing on what we love most—freshly baked sourdough loaves. But this is just the start. As we grow, we’re excited to expand our offerings to include cookies, cakes, sweet loaves, and other seasonal treats to share with our community. Keep an eye on this space for new products—we can’t wait to bring you along on the journey.</p>
+        </div>
+      </section>
+
+      <aside class="sidebar">
+        <div class="card">
+          <div class="cart-title">
+            <div>
+              <strong>Cart</strong>
+              <div class="note" id="cart-count">0 items</div>
+            </div>
+            <div id="cart-clear-wrap"><button class="btn secondary" id="clear-cart">Clear</button></div>
+          </div>
+
+          <div class="cart-list" id="cart-list">
+            <div class="note">Your cart is empty.</div>
+          </div>
+
+          <div class="total-row">
+            <div style="font-weight:600">Total</div>
+            <div id="cart-total">$0.00</div>
+          </div>
+
+          <button class="btn" id="checkout-btn" style="width:100%;margin-top:16px;margin-bottom:8px;display:none">Checkout</button>
+          <!-- Recurring subscriptions: weekly charge option -->
+          <button class="btn" id="subscribe-btn" style="width:100%;margin-top:8px;margin-bottom:8px;display:none;background:#2b8a3e">Recurring subscriptions</button>
+          <div style="margin-top:12px" id="paypal-subscription-container"></div>
+          <div style="margin-top:12px" id="paypal-button-container"></div>
+          <div class="note">Payments handled securely by PayPal. You will be redirected to PayPal to complete payment.</div>
+
+          <div id="success-message" style="display:none" class="success"></div>
+        </div>
+      </aside>
+    </main>
+
+    <footer>
+      &copy; <span id="year"></span> Brandwood Farm Bakery — Baked with love & passion
+    </footer>
+  </div>
+
+  <script>
+    // ====== Sample products ======
+    const PRODUCTS = [
+  { id: 'sourdough', title: 'Sourdough Loaf', desc: 'Large rustic loaf — crunchy crust, fluffy inside.', price: 10.00, img: 'Sourdough.jpg' }
+    ];
+
+    // Simple in-memory cart
+    let cart = {};
+
+    function fmt(n){return n.toLocaleString(undefined,{style:'currency',currency:'AUD'})}
+
+    function renderProducts(){
+      const wrap = document.getElementById('products'); wrap.innerHTML = '';
+      PRODUCTS.forEach(p=>{
+        const el = document.createElement('div'); el.className='card';
+        el.innerHTML = `
+          <div class="prod-img"><img src="${p.img}" alt="${p.title}" style="max-width:100%;max-height:100%;border-radius:8px;"></div>
+          <h4 class="prod-title">${p.title}</h4>
+          <div class="prod-desc">${p.desc}</div>
+          <div class="prod-footer">
+            <div style="font-weight:700">${fmt(p.price)}</div>
+            <div>
+              <button class="btn" data-id="${p.id}">Add</button>
+            </div>
+          </div>`;
+        wrap.appendChild(el);
+      });
+    }
+
+    function renderCart(){
+      const list = document.getElementById('cart-list');
+      const count = Object.values(cart).reduce((s,i)=>s+i.qty,0);
+      document.getElementById('cart-count').textContent = count + (count===1? ' item' : ' items');
+      const checkoutBtn = document.getElementById('checkout-btn');
+      if(count===0){ 
+        list.innerHTML = '<div class="note">Your cart is empty.</div>';
+        document.getElementById('paypal-button-container').style.display='none';
+        if (checkoutBtn) checkoutBtn.style.display = 'none';
+        return; 
+      }
+      document.getElementById('paypal-button-container').style.display='block';
+      if (checkoutBtn) checkoutBtn.style.display = 'block';
+      list.innerHTML='';
+      Object.values(cart).forEach(ci=>{
+        const row = document.createElement('div'); row.className='cart-item';
+        row.innerHTML = `
+          <div style="flex:1">
+            <div style="font-weight:600">${ci.title}</div>
+            <div class="note">${fmt(ci.price)} each</div>
+          </div>
+          <div style="text-align:right">
+            <div class="qty">${ci.qty}</div>
+            <div style="margin-top:6px">
+              <button class="btn secondary" data-decrease="${ci.id}">-</button>
+              <button class="btn" data-increase="${ci.id}" style="margin-left:6px">+</button>
+            </div>
+          </div>`;
+        list.appendChild(row);
+      });
+      document.getElementById('cart-total').textContent = fmt(getTotal());
+    }
+
+    function getTotal(){
+      return Object.values(cart).reduce((s,i)=>s + i.qty * i.price, 0);
+    }
+
+    // Wire add buttons and checkout
+    document.addEventListener('click', (e)=>{
+      const id = e.target.getAttribute('data-id');
+      if(id){ addToCart(id); return; }
+      const inc = e.target.getAttribute('data-increase');
+      if(inc){ changeQty(inc, 1); return; }
+      const dec = e.target.getAttribute('data-decrease');
+      if(dec){ changeQty(dec, -1); return; }
+      if(e.target.id === 'clear-cart'){ cart = {}; renderCart(); }
+      if(e.target.id === 'checkout-btn'){
+        // Save cart quantity to localStorage and redirect to checkout
+        try {
+          const sourdough = cart['sourdough'] ? cart['sourdough'].qty : 0;
+          localStorage.setItem('checkout_qty', sourdough);
+        } catch (err) { console.warn('Could not save checkout quantity', err); }
+        window.location.href = 'checkout.html';
+      }
+    });
+
+    function addToCart(id){
+      const p = PRODUCTS.find(x=>x.id===id); if(!p) return;
+      if(!cart[id]) cart[id] = { id: p.id, title: p.title, price: p.price, qty: 0 };
+      cart[id].qty += 1; renderCart();
+    }
+    function changeQty(id, delta){
+      if(!cart[id]) return; cart[id].qty += delta; if(cart[id].qty<=0) delete cart[id]; renderCart();
+    }
+
+    // initialise UI
+    document.getElementById('year').textContent = new Date().getFullYear();
+    renderProducts(); renderCart();
+
+    // Show/hide subscription button depending on cart total
+    function updateSubscriptionUi(){
+      const subBtn = document.getElementById('subscribe-btn');
+      const total = getTotal();
+      // Only show when there is something in cart and total > 0
+      if(subBtn) subBtn.style.display = total > 0 ? 'block' : 'none';
+    }
+
+    // Hook cart renders to update subscription visibility
+    const origRenderCart = renderCart;
+    renderCart = function(){ origRenderCart(); updateSubscriptionUi(); };
+
+    // When user clicks subscribe, scroll to subscription PayPal button
+    document.addEventListener('click', (e)=>{
+      if(e.target && e.target.id === 'subscribe-btn'){
+        // Save current cart as the user's selected recurring items and redirect
+        try{
+          const subs = Object.values(cart).map(i=>({ id: i.id, title: i.title, price: i.price, qty: i.qty }));
+          localStorage.setItem('recurring_subscriptions', JSON.stringify({ items: subs, created: new Date().toISOString() }));
+        }catch(err){ console.warn('Could not save subscriptions to localStorage', err); }
+        // Navigate to subscriptions page (new page will read localStorage)
+        window.location.href = 'subscriptions.html';
+      }
+    });
+
+  </script>
+
+  <!-- PayPal SDK: replace YOUR_PAYPAL_CLIENT_ID with your real client id -->
+  <script src="https://www.paypal.com/sdk/js?client-id=YOUR_PAYPAL_CLIENT_ID&currency=AUD"></script>
+  <script>
+    // Render PayPal buttons and link to our cart total
+    function setupPayPal(){
+      if(!window.paypal) return;
+
+      paypal.Buttons({
+        style:{layout:'vertical',color:'gold',shape:'rect',label:'pay'},
+        createOrder: function(data, actions){
+          const total = getTotal();
+          // PayPal expects a string amount
+          return actions.order.create({
+            purchase_units: [{ amount: { value: total.toFixed(2), currency_code: 'AUD' } }]
+          });
+        },
+        onApprove: function(data, actions){
+          return actions.order.capture().then(function(details){
+            // Show a simple success message and clear cart
+            const name = details.payer.name.given_name || '';
+            document.getElementById('success-message').style.display = 'block';
+            document.getElementById('success-message').textContent = `Thanks ${name}! Payment complete — order ID ${details.id}. We'll get your fresh baked goods ready.`;
+            cart = {}; renderCart();
+          });
+        },
+        onError: function(err){
+          alert('Payment error: ' + (err && err.message ? err.message : err));
+        }
+      }).render('#paypal-button-container');
+    }
+
+    // Wait for PayPal SDK to load then setup buttons
+    if (window.paypal) setupPayPal();
+    else {
+      const t = setInterval(()=>{ if(window.paypal){ clearInterval(t); setupPayPal(); } },100);
+    }
+  </script>
+  <script>
+    // ====== PayPal Subscriptions (client-side rendering only) ======
+    // Note: Subscriptions with PayPal normally require creating a billing plan
+    // (a "plan") on the server or via the PayPal dashboard and then using the
+    // plan ID here. This demo uses a placeholder PLAN_ID and will not work
+    // until you replace it with a real plan ID from your PayPal account or
+    // create one via the Subscriptions API on your server.
+
+    function setupPayPalSubscriptions(){
+      if(!window.paypal) return;
+
+      // Replace this with your actual plan ID for a weekly subscription
+      const PLAN_ID = 'P-REPLACE_WITH_YOUR_PLAN_ID';
+
+      // Render a subscription button into the subscription container
+      paypal.Buttons({
+        style:{layout:'vertical',color:'blue',shape:'rect',label:'subscribe'},
+        createSubscription: function(data, actions){
+          // You MUST provide a valid plan id here for PayPal to create a subscription
+          return actions.subscription.create({
+            'plan_id': PLAN_ID
+          });
+        },
+        onApprove: function(data, actions){
+          // data.subscriptionID contains the id of the new subscription
+          document.getElementById('success-message').style.display = 'block';
+          document.getElementById('success-message').textContent = `Thanks — subscription active (ID ${data.subscriptionID}). We'll charge weekly.`;
+          // Clear the cart locally; server should also record the subscription
+          cart = {}; renderCart();
+        },
+        onError: function(err){
+          alert('Subscription error: ' + (err && err.message ? err.message : err));
+        }
+      }).render('#paypal-subscription-container');
+    }
+
+    // Setup subscriptions once PayPal SDK is available
+    if (window.paypal) setupPayPalSubscriptions();
+    else {
+      const t2 = setInterval(()=>{ if(window.paypal){ clearInterval(t2); setupPayPalSubscriptions(); } },100);
+    }
+  </script>
+</body>
+</html>

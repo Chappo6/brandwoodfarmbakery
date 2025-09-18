@@ -1,0 +1,108 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Brandwood Farm Bakery</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;700&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+  <style>
+    :root{--accent:#b75e3c;--muted:#6b6f76;--bg:#fffaf6}
+    *{box-sizing:border-box}
+    body{font-family:Inter,system-ui,Arial;margin:0;background:var(--bg);color:#111}
+    header{display:flex;justify-content:space-between;align-items:center;padding:28px 36px;border-bottom:1px solid #f0e6e0}
+    .brand{display:flex;align-items:center;gap:14px}
+    .logo{width:56px;height:56px;border-radius:8px;background:linear-gradient(135deg,var(--accent),#ff9b6b);display:flex;align-items:center;justify-content:center;color:#fff;font-family:Playfair Display;font-weight:700;font-size:20px}
+    nav a{margin-left:18px;text-decoration:none;color:var(--muted);font-weight:600}
+
+    .hero{display:grid;grid-template-columns:1fr 420px;gap:36px;align-items:center;padding:48px 36px}
+    @media(max-width:900px){.hero{grid-template-columns:1fr; padding:28px 20px}}
+    .hero-left h1{font-family:Playfair Display,serif;font-size:48px;margin:0 0 12px;color:#4a2e20}
+    .hero-left p{margin:0 0 20px;color:var(--muted);max-width:60ch}
+    .cta{display:flex;gap:12px;align-items:center}
+    .btn{background:var(--accent);color:#fff;padding:12px 18px;border-radius:10px;text-decoration:none;font-weight:700}
+    .btn.ghost{background:transparent;border:1px solid rgba(183,94,60,0.14);color:var(--accent);padding:10px 16px}
+
+    .card{background:#fff;border-radius:12px;padding:18px;box-shadow:0 8px 24px rgba(16,24,40,0.06)}
+    .about{display:flex;gap:20px;padding:36px;border-top:1px solid #f0e6e0}
+    .about img{width:320px;height:220px;object-fit:cover;border-radius:10px}
+    .gallery{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;padding:36px}
+    .gallery .pic{height:140px;border-radius:10px;background:#f6eae4;display:flex;align-items:center;justify-content:center;color:#a67d6b;font-weight:600}
+    footer{padding:20px 36px;border-top:1px solid #f0e6e0;color:var(--muted);display:flex;justify-content:space-between;align-items:center}
+
+    .social a{display:inline-block;text-decoration:none;color:var(--muted);font-weight:600}
+    .small{font-size:0.95rem;color:var(--muted)}
+  </style>
+</head>
+<body>
+  <header>
+    <div class="brand">
+      <div class="logo">BFB</div>
+      <div>
+        <div style="font-weight:700">Brandwood Farm Bakery</div>
+        <div class="small">Fresh bread & baked goods</div>
+      </div>
+    </div>
+    <nav>
+  <a href="index.html">Home</a>
+  <a href="shop.html">Shop</a>
+  <a href="subscriptions.html">Subscriptions</a>
+    </nav>
+  </header>
+
+  <section class="hero">
+    <div class="hero-left">
+      <h1>Artisan bread, delivered weekly.</h1>
+      <p>We bake small batches of naturally-leavened loaves, pastries, and seasonal treats. Order for pickup or local delivery — or subscribe and receive weekly favourites.</p>
+      <div class="cta" style="justify-content:center;display:flex;">
+        <a class="btn" href="shop.html">Shop Now</a>
+      </div>
+    </div>
+
+    <div class="card">
+      <h3 style="margin-top:0">Today's Specials</h3>
+      <div style="margin-top:12px;font-weight:700">Sourdough Loaf — $11.99</div>
+      <div class="small" style="margin-top:6px">Freshly baked; crunchy crust & soft crumb.</div>
+      <div style="height:12px"></div>
+      <div style="display:flex;gap:8px;margin-top:12px">
+        <img src="Sourdough.jpg" alt="Sourdough" style="width:86px;height:86px;object-fit:cover;border-radius:8px">
+        <img src="croissant.jpg" alt="Croissant" style="width:86px;height:86px;object-fit:cover;border-radius:8px">
+        <img src="BananaBread.jpg" alt="Banana bread" style="width:86px;height:86px;object-fit:cover;border-radius:8px">
+      </div>
+    </div>
+  </section>
+
+  <section id="about" class="about">
+    <div style="flex:1">
+      <h2 style="margin-top:0">About Us</h2>
+      <p class="small">Brandwood Farm Bakery is a family-run bakery focused on traditional techniques and seasonal ingredients. We hand-shape dough, proof slowly, and bake in small batches so every loaf has character.</p>
+      <p class="small">We deliver locally and offer weekly subscriptions for staples like sourdough, croissants, and cookies. Want to learn more or visit the bakehouse? Email us or follow along on Instagram.</p>
+      <p style="margin-top:10px"><a class="btn" href="shop.html">Order Now</a></p>
+    </div>
+    <div>
+      <img src="Cookies.jpg" alt="Baked goods" style="width:100%;max-width:360px;border-radius:10px;object-fit:cover;display:block">
+    </div>
+  </section>
+
+  <section class="gallery">
+    <div class="pic">Placeholder 1</div>
+    <div class="pic">Placeholder 2</div>
+    <div class="pic">Placeholder 3</div>
+    <div class="pic">Placeholder 4</div>
+    <div class="pic">Placeholder 5</div>
+    <div class="pic">Placeholder 6</div>
+  </section>
+
+  <footer>
+    <div>
+      &copy; <span id="year"></span> Brandwood Farm Bakery — Baked with love
+    </div>
+    <div class="social">
+      <a href="https://instagram.com/your_instagram_account" target="_blank">Instagram</a>
+    </div>
+  </footer>
+
+  <script>
+    document.getElementById('year').textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>

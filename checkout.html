@@ -1,0 +1,104 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Checkout — Brandwood Farm Bakery</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <style>
+    body{font-family:Inter,system-ui,Segoe UI,Arial;margin:0;background:#f7f7f9;color:#111}
+    .container{max-width:500px;margin:40px auto;padding:24px;background:#fff;border-radius:12px;box-shadow:0 6px 18px rgba(16,24,40,0.06)}
+    h1{margin-top:0}
+    label{display:block;margin:16px 0 6px;font-weight:600}
+    input,select{width:100%;padding:10px;border-radius:8px;border:1px solid #ddd;margin-bottom:12px}
+    .btn{background:#b75e3c;color:#fff;padding:12px 18px;border-radius:10px;text-decoration:none;font-weight:700;border:none;cursor:pointer;width:100%}
+    .address{background:#f8f4ee;padding:12px;border-radius:8px;margin-bottom:18px;color:#6b6f76}
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div style="background:#f8f4ee;padding:16px 12px;border-radius:10px;margin-bottom:24px;color:#6b6f76">
+      <strong>Pickup & Delivery Options:</strong><br>
+      <ul style="margin:10px 0 0 18px;padding:0;">
+  <li><strong>Pickup:</strong> Collect your order from our home bakery at 38 Brandwood Drive, Cherry Gardens. Pick up is available from 7am to 12pm.</li>
+  <li><strong>Delivery:</strong> Local delivery is available for addresses in Cherry Gardens. Please enter your delivery address and we'll confirm availability after you order. A tailored delivery time will be given between 7am and 12pm.</li>
+      </ul>
+    </div>
+    <h1>Checkout</h1>
+  <div style="background:#f8f4ee;padding:16px 12px;border-radius:10px;margin-bottom:24px;color:#111;">
+  <h2 style="margin:0 0 10px 0;font-size:20px;">Order Summary</h2>
+  <div style="font-size:16px;margin-bottom:6px;">Sourdough Loaf</div>
+  <div style="color:#6b6f76;font-size:15px;margin-bottom:6px;">Large rustic loaf — crunchy crust, fluffy inside.</div>
+  <div id="order-qty" style="font-size:15px;margin-bottom:6px;"></div>
+  <div id="order-total" style="font-weight:600;font-size:16px;"></div>
+    </div>
+    <div class="address" id="pickup-address" style="display:none;">
+  <strong>Pickup Address:</strong><br>
+  38 Brandwood Drive, Cherry Gardens
+    </div>
+  <form id="order-form">
+      <label for="name">Name</label>
+      <input type="text" id="name" name="name" required>
+
+      <label for="email">Email</label>
+      <input type="email" id="email" name="email" required>
+
+      <label for="option">Pickup or Delivery?</label>
+      <select id="option" name="option" required onchange="togglePickupAddress()">
+        <option value="pickup">Pickup</option>
+        <option value="delivery">Delivery</option>
+      </select>
+
+      <div id="pickup-time-section" style="display:none;">
+        <label for="pickup-time">Estimated Pickup Time</label>
+        <input type="time" id="pickup-time" name="pickup-time" min="07:00" max="12:00">
+      </div>
+      <div id="delivery-address-section" style="display:none;">
+        <label for="address">Delivery Address</label>
+        <input type="text" id="address" name="address" placeholder="Enter delivery address">
+      </div>
+
+
+      <button class="btn" type="submit">Place Order</button>
+    </form>
+  </div>
+  <script>
+    // Display quantity and total from localStorage
+    function updateOrderSummary() {
+      var qty = parseInt(localStorage.getItem('checkout_qty') || '1', 10);
+      if (isNaN(qty) || qty < 1) qty = 1;
+      document.getElementById('order-qty').textContent = 'Quantity: ' + qty + (qty === 1 ? ' loaf' : ' loaves');
+      document.getElementById('order-total').textContent = 'Total: $' + (qty * 10).toFixed(2);
+    }
+    document.addEventListener('DOMContentLoaded', updateOrderSummary);
+
+    document.getElementById('order-form').addEventListener('submit', function(e) {
+      e.preventDefault();
+      // Collect order details
+      var name = document.getElementById('name').value;
+      var email = document.getElementById('email').value;
+      var option = document.getElementById('option').value;
+      var pickupTime = document.getElementById('pickup-time').value;
+      var address = document.getElementById('address').value;
+      var qty = parseInt(localStorage.getItem('checkout_qty') || '1', 10);
+      if (isNaN(qty) || qty < 1) qty = 1;
+      // Redirect to PayPal with correct quantity and amount
+      var paypalUrl = 'https://www.paypal.com/cgi-bin/webscr?cmd=_xclick&business=your-email@example.com&item_name=' + encodeURIComponent('Sourdough Loaf (' + qty + ')') + '&amount=' + (qty * 10).toFixed(2) + '&currency_code=AUD';
+      window.location.href = paypalUrl;
+    });
+    function togglePickupAddress() {
+      var option = document.getElementById('option').value;
+      var addressDiv = document.getElementById('pickup-address');
+      var pickupTimeSection = document.getElementById('pickup-time-section');
+  addressDiv.style.display = option === 'pickup' ? 'block' : 'none';
+  pickupTimeSection.style.display = option === 'pickup' ? 'block' : 'none';
+  var deliveryAddressSection = document.getElementById('delivery-address-section');
+  deliveryAddressSection.style.display = option === 'delivery' ? 'block' : 'none';
+    }
+    // Initialize on page load
+    document.addEventListener('DOMContentLoaded', function() {
+      togglePickupAddress();
+    });
+  </script>
+</body>
+</html>

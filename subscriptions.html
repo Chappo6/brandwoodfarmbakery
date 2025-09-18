@@ -1,0 +1,92 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Your Recurring Subscriptions — Brandwood Farm Bakery</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root{--bg:#f7f7f9;--card:#ffffff;--accent:#b75e3c;--muted:#6b6f76}
+    body{font-family:Inter,system-ui,Segoe UI,Arial;margin:0;background:linear-gradient(180deg,#fdfbfb,#f7f7f9);color:#111}
+    .wrap{max-width:900px;margin:32px auto;padding:24px}
+    .card{background:var(--card);border-radius:12px;padding:16px;box-shadow:0 6px 18px rgba(16,24,40,0.06)}
+    h1{margin:0 0 8px 0}
+    .note{color:var(--muted);font-size:14px}
+    .sub-list{margin-top:12px}
+    .sub-item{display:flex;justify-content:space-between;align-items:center;padding:10px;border-radius:8px;border:1px solid #f0f0f2;margin-bottom:8px}
+    .btn{background:var(--accent);color:#fff;border:0;padding:8px 12px;border-radius:10px;cursor:pointer;font-weight:600}
+    .btn.ghost{background:transparent;color:var(--accent);border:1px solid rgba(183,94,60,0.14)}
+    footer{margin-top:18px;color:var(--muted);font-size:13px;text-align:center}
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <div style="display:flex;flex-wrap:wrap;align-items:center;gap:18px;margin-bottom:12px">
+      <h1 style="margin:0 18px 0 0;">Your Recurring Subscriptions</h1>
+  <a href="shop.html" class="btn ghost" style="margin:0;border:none;background:#fff;color:#b75e3c;">Back to shop</a>
+      <div style="width:100%"></div>
+      <div class="note" style="margin-top:0;">These are the products you signed up to receive weekly.</div>
+      <div style="margin-top:14px;color:#6b6f76;font-size:15px;width:100%;">
+        Want sourdough every week without the hassle? Our weekly subscription makes it simple. Freshly baked loaves will be ready just for you—no need to remember to order each time. Just choose how many loaves you’d like, and we’ll take care of the rest. Consistency, convenience, and that fresh sourdough smell in your home every week.
+      </div>
+    </div>
+
+    <div class="card">
+      <div id="subs-container">
+        <div class="note">Loading your subscriptions…</div>
+      </div>
+
+      <div style="margin-top:12px;display:flex;justify-content:space-between;align-items:center">
+        <div class="note">Manage your recurring orders here. To stop charges on PayPal, cancel the subscription from your PayPal account or via our server if implemented.</div>
+      </div>
+      <div style="margin-top:24px;text-align:center;">
+  <button class="btn" onclick="window.location.href='checkout.html'">Checkout Now</button>
+      </div>
+        <button id="cancel-all" class="btn ghost">Cancel All</button>
+      </div>
+    </div>
+
+    <footer>
+      &copy; <span id="year"></span> Brandwood Farm Bakery
+    </footer>
+  </div>
+
+  <script>
+    function fmt(n){return n.toLocaleString(undefined,{style:'currency',currency:'AUD'})}
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    function loadSubscriptions(){
+      const el = document.getElementById('subs-container');
+      try{
+        const raw = localStorage.getItem('recurring_subscriptions');
+        if(!raw){ el.innerHTML = '<div class="note">You have no active recurring subscriptions.</div>'; return; }
+        const data = JSON.parse(raw);
+        const items = data.items || [];
+        if(items.length===0){ el.innerHTML = '<div class="note">You have no active recurring subscriptions.</div>'; return; }
+        const list = document.createElement('div'); list.className = 'sub-list';
+        let total = 0;
+        items.forEach(it=>{
+          total += it.price * (it.qty || 1);
+          const row = document.createElement('div'); row.className='sub-item';
+          row.innerHTML = `<div><div style="font-weight:600">${it.title}</div><div class="note">${it.qty} × ${fmt(it.price)}</div></div><div style="text-align:right"><div style="font-weight:700">${fmt((it.price*(it.qty||1)))}</div></div>`;
+          list.appendChild(row);
+        });
+        const totRow = document.createElement('div'); totRow.style.marginTop='12px'; totRow.style.display='flex'; totRow.style.justifyContent='space-between'; totRow.style.alignItems='center';
+        totRow.innerHTML = `<div style="font-weight:600">Weekly total</div><div style="font-weight:700">${fmt(total)}</div>`;
+        el.innerHTML = '';
+        el.appendChild(list);
+        el.appendChild(totRow);
+      }catch(err){ console.warn('Error loading subscriptions', err); el.innerHTML = '<div class="note">Could not load subscriptions.</div>'; }
+    }
+
+    document.getElementById('cancel-all').addEventListener('click', ()=>{
+      if(!confirm('Are you sure you want to cancel all recurring subscriptions locally? This will only clear your selections here. To fully cancel billing, please cancel on PayPal or via server.')) return;
+      localStorage.removeItem('recurring_subscriptions');
+      loadSubscriptions();
+      alert('Local recurring subscriptions cleared. To stop actual billing, cancel the subscription in PayPal or contact support.');
+    });
+
+    loadSubscriptions();
+  </script>
+</body>
+</html>
