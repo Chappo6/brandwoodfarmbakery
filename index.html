@@ -8,16 +8,30 @@
   <style>
     :root{--accent:#b75e3c;--muted:#6b6f76;--bg:#fffaf6}
     *{box-sizing:border-box}
-    body{font-family:Inter,system-ui,Arial;margin:0;background:var(--bg);color:#111}
+  body{font-family:Inter,system-ui,Arial;margin:0;background-color:#e6ded7;color:#111}
     header{display:flex;justify-content:space-between;align-items:center;padding:28px 36px;border-bottom:1px solid #f0e6e0}
     .brand{display:flex;align-items:center;gap:14px}
     .logo{width:56px;height:56px;border-radius:8px;background:linear-gradient(135deg,var(--accent),#ff9b6b);display:flex;align-items:center;justify-content:center;color:#fff;font-family:Playfair Display;font-weight:700;font-size:20px}
     nav a{margin-left:18px;text-decoration:none;color:var(--muted);font-weight:600}
 
-    .hero{display:grid;grid-template-columns:1fr 420px;gap:36px;align-items:center;padding:48px 36px}
+    .hero{
+      display:flex;
+      flex-direction:column;
+      justify-content:center;
+      align-items:center;
+      min-height:70vh;
+      padding:48px 36px;
+      background:
+        linear-gradient(rgba(230,222,215,0.25), rgba(230,222,215,0.25)),
+        url('sourdough-bread.jpg'), url('https://images.unsplash.com/photo-1517971071642-34a2d3dacff8?auto=format&fit=crop&w=1200&q=80');
+      background-position: center center, center center;
+      background-size: cover, cover;
+      background-repeat: no-repeat, no-repeat;
+      border-radius:18px;
+    }
     @media(max-width:900px){.hero{grid-template-columns:1fr; padding:28px 20px}}
     .hero-left h1{font-family:Playfair Display,serif;font-size:48px;margin:0 0 12px;color:#4a2e20}
-    .hero-left p{margin:0 0 20px;color:var(--muted);max-width:60ch}
+  .hero-left p{margin:0 0 20px;color:#2a1a0a;max-width:60ch}
     .cta{display:flex;gap:12px;align-items:center}
     .btn{background:var(--accent);color:#fff;padding:12px 18px;border-radius:10px;text-decoration:none;font-weight:700}
     .btn.ghost{background:transparent;border:1px solid rgba(183,94,60,0.14);color:var(--accent);padding:10px 16px}
@@ -43,7 +57,7 @@
       </div>
     </div>
     <nav>
-  <a href="index.html">Home</a>
+  
   <a href="shop.html">Shop</a>
   <a href="subscriptions.html">Subscriptions</a>
     </nav>
@@ -51,45 +65,34 @@
 
   <section class="hero">
     <div class="hero-left">
-      <h1>Artisan bread, delivered weekly.</h1>
-      <p>We bake small batches of naturally-leavened loaves, pastries, and seasonal treats. Order for pickup or local delivery — or subscribe and receive weekly favourites.</p>
-      <div class="cta" style="justify-content:center;display:flex;">
-        <a class="btn" href="shop.html">Shop Now</a>
+  <h1>Artisan Bread, Baked Weekly</h1>
+  <p>We bake small batches of naturally-leavened loaves, pastries, and seasonal treats right from our home bakery in Cherry Gardens. Order for pickup or local delivery — or subscribe and receive weekly favourites.</p>
+      <div class="cta" style="display:flex;justify-content:center;">
+  <a class="btn" href="shop.html">Order Now</a>
       </div>
     </div>
 
-    <div class="card">
-      <h3 style="margin-top:0">Today's Specials</h3>
-      <div style="margin-top:12px;font-weight:700">Sourdough Loaf — $11.99</div>
-      <div class="small" style="margin-top:6px">Freshly baked; crunchy crust & soft crumb.</div>
-      <div style="height:12px"></div>
-      <div style="display:flex;gap:8px;margin-top:12px">
-        <img src="Sourdough.jpg" alt="Sourdough" style="width:86px;height:86px;object-fit:cover;border-radius:8px">
-        <img src="croissant.jpg" alt="Croissant" style="width:86px;height:86px;object-fit:cover;border-radius:8px">
-        <img src="BananaBread.jpg" alt="Banana bread" style="width:86px;height:86px;object-fit:cover;border-radius:8px">
-      </div>
-    </div>
+    
   </section>
 
   <section id="about" class="about">
     <div style="flex:1">
       <h2 style="margin-top:0">About Us</h2>
-      <p class="small">Brandwood Farm Bakery is a family-run bakery focused on traditional techniques and seasonal ingredients. We hand-shape dough, proof slowly, and bake in small batches so every loaf has character.</p>
-      <p class="small">We deliver locally and offer weekly subscriptions for staples like sourdough, croissants, and cookies. Want to learn more or visit the bakehouse? Email us or follow along on Instagram.</p>
-      <p style="margin-top:10px"><a class="btn" href="shop.html">Order Now</a></p>
+    <p class="small">We are a small but passionate business with big dreams for the future. What began as a simple love for homemade bread has quickly become something more—a growing bakery that’s just starting to take shape. As we continue to grow, our vision is to expand our offerings beyond fresh loaves, sharing even more of what we love to bake.</p>
+    <p class="small">In time, we hope to bring a wider variety of artisan treats to our community—cookies that melt in your mouth, cakes for every celebration, rustic loaves full of character, and other handcrafted goods made with care. Each step forward is driven by the same purpose: to create food that feels homely, wholesome, and full of heart.</p>
+    <p class="small">Our journey is only just beginning, but with every bake, we’re building something we hope will last—nourishing traditions, sweet moments, and a bakery that grows alongside the people who support it.</p>
     </div>
-    <div>
-      <img src="Cookies.jpg" alt="Baked goods" style="width:100%;max-width:360px;border-radius:10px;object-fit:cover;display:block">
-    </div>
+    
   </section>
 
-  <section class="gallery">
-    <div class="pic">Placeholder 1</div>
-    <div class="pic">Placeholder 2</div>
-    <div class="pic">Placeholder 3</div>
-    <div class="pic">Placeholder 4</div>
-    <div class="pic">Placeholder 5</div>
-    <div class="pic">Placeholder 6</div>
+  <section id="contact" class="contact" style="padding:36px 0;border-top:1px solid #f0e6e0;display:flex;flex-direction:column;align-items:center;text-align:center;">
+    <h2 style="margin-top:0">Contact Us</h2>
+    <p class="small">Have a question, want to place a custom order, or just want to say hello? Reach out to us below!</p>
+    <ul style="list-style:none;padding:0">
+      <li><strong>Email:</strong> <a href="mailto:brandwoodfarmbakery@gmail.com">brandwoodfarmbakery@gmail.com</a></li>
+      <li><strong>Phone:</strong> <a href="tel:0412613544">0412 613 544</a></li>
+      <li><strong>Instagram:</strong> <a href="https://instagram.com/brandwoodfarmbakery" target="_blank">@brandwoodfarmbakery</a></li>
+    </ul>
   </section>
 
   <footer>
